@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pigglish — Pig Latin Translator (English to Pig Latin &amp; Back)</title>
+<meta name="description" content="Pigglish is a free Pig Latin Translator that converts English to Pig Latin and back, preserving capitalisation and punctuation, with a way/yay toggle and a speak-the-result button.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+ body{font-family:'Nunito',sans-serif;background:#FFF7FB}
+ h1,h2,h3,.font-display{font-family:'Fredoka',sans-serif}
+ .blob{border-radius:2rem}
+ textarea:focus{outline:none}
+ .card-hover{transition:transform .18s ease, box-shadow .18s ease}
+ .card-hover:hover{transform:translateY(-3px) rotate(-.3deg)}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What exactly is Pig Latin?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pig Latin is a playful language game, not a separate natural language and not real Latin. You transform ordinary English words by moving the opening consonant sounds to the end of the word and adding a short ending. Words that begin with a vowel simply gain an ending instead. The result sounds cheerful and secretive, which is why friends, classmates and families have used it for generations as a light hearted code for jokes, notes and games."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I translate a word that starts with a vowel?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Words that begin with a, e, i, o or u keep their letters in place and gain an ending. On Pigglish you can choose that ending: pick the way variant and apple becomes appleway, or pick the yay variant and apple becomes appleyay. Both forms are widely understood. The way form is the most common in books and classrooms, while the yay form is popular in some regions and friendship groups, so choose the one your group already uses."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the way and yay toggle do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The toggle only changes how vowel starting words are finished. Consonant starting words work the same way in both modes and simply end in ay after their opening sounds move to the back. So hello becomes ellohay either way, while egg becomes eggway in way mode and eggyay in yay mode. When you translate back into English, Pigglish recognises both endings, so a friend using the other variant can still send you text that decodes cleanly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can Pigglish translate Pig Latin back into English?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Use the direction switch at the top of the tool, or the swap button between the cards, to flip into Pig Latin to English mode. Pigglish removes the endings, moves the trailing sounds back to the front of each word, and restores your capital letters and punctuation. Because Pig Latin is a spoken game, a few rare words can be ambiguous when written down, but everyday words, names in sentences and common phrases come back accurately."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Pigglish keep my capital letters and punctuation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Capitalisation and punctuation are preserved in both directions. A capitalised word such as Hello becomes Ellohay, a shouting word in all capitals such as WOW stays in all capitals after translation, and commas, full stops, question marks, exclamation marks and line breaks stay exactly where you put them. That means whole sentences, song lines and chat messages keep their shape and feeling after translation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I listen to the translation spoken aloud?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Press the Speak result button and your browser reads the translated text aloud using its built in speech voice, with no download or account needed. It is a lovely way to learn the rhythm of Pig Latin, to check how a sentence sounds before you say it to friends, or simply to enjoy the comedy of a serious sentence delivered in Pig Latin. If your device has no speech voice available, the tool shows a gentle message instead of failing silently."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body id="top" class="text-slate-800 min-h-screen">
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b-4 border-pink-200">
+ <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+  <a href="#top" class="flex items-center gap-2 font-display font-bold text-2xl"><span class="text-3xl" aria-hidden="true">🐷</span><span class="text-pink-500">Pig</span><span class="text-emerald-500">glish</span></a>
+  <nav class="flex items-center gap-2 sm:gap-4 font-bold text-sm sm:text-base">
+   <a href="#top" class="px-3 py-2 rounded-full hover:bg-pink-100">Home</a>
+   <a href="https://fixoraa.tech" class="px-3 py-2 rounded-full bg-emerald-400 text-white hover:bg-emerald-500 shadow">More Tools</a>
+  </nav>
+ </div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6">
+ <section class="text-center pt-8 pb-2">
+  <span class="inline-block bg-emerald-100 text-emerald-700 font-extrabold text-xs sm:text-sm px-4 py-1.5 rounded-full border-2 border-emerald-300">✦ Unlimited Free Usage ✦</span>
+  <h1 class="text-4xl sm:text-6xl font-bold mt-4 leading-tight">Pig Latin <span class="text-pink-500">Translator</span></h1>
+  <p class="mt-3 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">Turn English into Pig Latin — and Pig Latin back into English. Capitals, punctuation and jokes all preserved. <strong>Ellohay, orldway!</strong></p>
+ </section>
+ <div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+ <section class="py-6" aria-label="Pig Latin translator tool">
+  <div class="flex flex-wrap items-center justify-center gap-3 mb-5">
+   <div class="inline-flex bg-white border-2 border-pink-200 rounded-full p-1 shadow-sm" role="group" aria-label="Translation direction">
+    <button id="dirToPig" type="button" class="px-4 py-2 rounded-full font-extrabold bg-pink-500 text-white">English → Pig Latin</button>
+    <button id="dirToEnglish" type="button" class="px-4 py-2 rounded-full font-extrabold text-pink-600">Pig Latin → English</button>
+   </div>
+   <div class="inline-flex items-center gap-2 bg-white border-2 border-emerald-200 rounded-full px-4 py-2 shadow-sm">
+    <span class="font-extrabold text-emerald-700 text-sm">Vowel ending:</span>
+    <button id="varWay" type="button" class="px-3 py-1 rounded-full font-extrabold bg-emerald-400 text-white" aria-pressed="true">way</button>
+    <button id="varYay" type="button" class="px-3 py-1 rounded-full font-extrabold text-emerald-600" aria-pressed="false">yay</button>
+   </div>
+  </div>
+  <div class="grid md:grid-cols-[1fr_auto_1fr] gap-4 items-stretch">
+   <div class="blob bg-white border-4 border-pink-300 p-5 shadow-lg card-hover">
+    <label for="inputText" id="inputLabel" class="font-display font-semibold text-lg text-pink-600">Your English text</label>
+    <textarea id="inputText" rows="7" class="w-full mt-2 text-lg leading-relaxed bg-pink-50 rounded-2xl p-4 border-2 border-pink-100" placeholder="Type or paste something fun… try: Hello, world!"></textarea>
+    <div class="flex flex-wrap gap-2 mt-3 items-center">
+     <span id="inputCount" class="text-sm font-bold text-slate-500">0 words · 0 characters</span>
+     <span class="flex-1"></span>
+     <button id="clearBtn" type="button" class="px-3 py-1.5 rounded-full bg-slate-100 font-bold hover:bg-slate-200">Clear</button>
+     <button id="pasteBtn" type="button" class="px-3 py-1.5 rounded-full bg-slate-100 font-bold hover:bg-slate-200">Paste</button>
+    </div>
+   </div>
+   <div class="flex md:flex-col items-center justify-center gap-2">
+    <button id="swapBtn" type="button" title="Swap direction and text" class="w-14 h-14 rounded-full bg-pink-500 text-white text-2xl shadow-lg hover:bg-pink-600 hover:rotate-180 transition" aria-label="Swap direction">⇄</button>
+   </div>
+   <div class="blob bg-emerald-50 border-4 border-emerald-300 p-5 shadow-lg card-hover">
+    <label for="outputText" id="outputLabel" class="font-display font-semibold text-lg text-emerald-700">Your Pig Latin</label>
+    <textarea id="outputText" rows="7" readonly class="w-full mt-2 text-lg leading-relaxed bg-white rounded-2xl p-4 border-2 border-emerald-100" placeholder="Your translation appears here, live…"></textarea>
+    <div class="flex flex-wrap gap-2 mt-3 items-center">
+     <span id="outputCount" class="text-sm font-bold text-slate-500">0 words</span>
+     <span class="flex-1"></span>
+     <button id="speakBtn" type="button" class="px-4 py-1.5 rounded-full bg-emerald-500 text-white font-extrabold hover:bg-emerald-600 shadow">🔊 Speak result</button>
+     <button id="copyBtn" type="button" class="px-3 py-1.5 rounded-full bg-pink-500 text-white font-extrabold hover:bg-pink-600 shadow">Copy</button>
+    </div>
+    <p id="toolMsg" class="mt-2 text-sm font-bold text-pink-600 min-h-[1.25rem]" role="status" aria-live="polite"></p>
+   </div>
+  </div>
+  <div class="flex flex-wrap justify-center gap-2 mt-5">
+   <span class="font-bold text-slate-500 w-full text-center sm:w-auto sm:self-center">Try an example:</span>
+   <button type="button" class="exampleBtn px-3 py-1.5 rounded-full bg-white border-2 border-pink-200 font-bold hover:bg-pink-100" data-text="Hello, world!">Hello, world!</button>
+   <button type="button" class="exampleBtn px-3 py-1.5 rounded-full bg-white border-2 border-pink-200 font-bold hover:bg-pink-100" data-text="The quick brown fox jumps over the lazy dog.">Pangram</button>
+   <button type="button" class="exampleBtn px-3 py-1.5 rounded-full bg-white border-2 border-pink-200 font-bold hover:bg-pink-100" data-text="Please pass the cheese, thank you!">Polite please</button>
+   <button type="button" class="exampleBtn px-3 py-1.5 rounded-full bg-white border-2 border-emerald-200 font-bold hover:bg-emerald-100" data-text="Apple pie for breakfast is a great idea.">Apple pie</button>
+  </div>
+  <div class="grid sm:grid-cols-3 gap-4 mt-6">
+   <div class="blob bg-pink-100 border-2 border-pink-200 p-4 text-center card-hover"><div class="text-3xl">🔤</div><h3 class="font-display font-semibold mt-1">Clusters travel together</h3><p class="text-sm text-slate-600 mt-1">String → ingstray. The str, ch, sh and qu sounds move as one, just like real spoken Pig Latin.</p></div>
+   <div class="blob bg-emerald-100 border-2 border-emerald-200 p-4 text-center card-hover"><div class="text-3xl">🔁</div><h3 class="font-display font-semibold mt-1">Both directions</h3><p class="text-sm text-slate-600 mt-1">Decode messages from friends with one switch — Pigglish understands both way and yay endings.</p></div>
+   <div class="blob bg-pink-100 border-2 border-pink-200 p-4 text-center card-hover"><div class="text-3xl">🔒</div><h3 class="font-display font-semibold mt-1">Private by design</h3><p class="text-sm text-slate-600 mt-1">Everything runs in your browser. Your text is never uploaded, stored or shared anywhere.</p></div>
+  </div>
+ </section>
+ <div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script async src="https://js.wpadmngr.com/static/adManager.js" data-admpid="464498"></script>
+    </div>
+  </div>
+</div>
+ <article id="seo-article" class="bg-white blob border-2 border-pink-100 shadow-sm p-6 sm:p-10 my-8 prose-pig">
+  <div class="space-y-4 text-[1.05rem] leading-relaxed text-slate-700">
+<h2 class="text-3xl font-extrabold text-slate-800">What Is Pig Latin, Really?</h2>
+<p>Pig Latin is one of the friendliest language games ever invented. It is not Latin, it has almost nothing to do with pigs, and nobody needs a textbook, a teacher or a talent for languages to enjoy it. You simply take an ordinary English word, shuffle its opening sounds to the back, add a cheerful little ending, and say the result out loud. Pig becomes igpay. Latin becomes atinlay. A perfectly sensible sentence suddenly sounds like a secret message shared between friends who are trying very hard not to laugh. That mixture of puzzle, rhythm and silliness is exactly what Pigglish is built for: a bright, instant translator that turns English into Pig Latin and Pig Latin back into English, right in your browser, with nothing to install and nothing to sign up for.</p>
+<p>The rules sound simple because they are simple, and that is the whole charm. If a word begins with a consonant sound, you move that opening sound, or the whole opening cluster of consonant sounds, to the end of the word and add ay. String, which begins with the three letter cluster str, becomes ingstray. Chicken becomes ickenchay. School becomes oolschay. If a word begins with a vowel sound instead, you leave the word where it is and add an ending. Apple becomes appleway, egg becomes eggway, and umbrella becomes umbrellaway. Within a minute of practice most people can hear the pattern, and within an afternoon most children can hold a wobbly, giggling conversation in it.</p>
+<h2 class="text-3xl font-extrabold text-slate-800 mt-8">The Way and Yay Question</h2>
+<p>Ask three Pig Latin speakers how to finish a vowel word and you may well hear two different answers, because the game has a famous friendly split. One camp adds way, so orange becomes orangeway. The other camp adds yay, so orange becomes orangeyay. Neither camp is wrong. The difference is a matter of region, family habit and which version somebody first learned on a playground, in a classroom or from an older sibling. Problems only appear when two people using different variants try to swap messages and wonder why the endings look unfamiliar.</p>
+<p>Pigglish solves that little dispute with a simple toggle. Choose way and every vowel starting word in your text gains the way ending. Choose yay and the same words gain the yay ending instead. Consonant words do not change at all between the two modes, because both traditions treat them identically. When you translate back into English, Pigglish recognises both endings automatically, so you can decode a message from a yay friend even while your own switch is set to way. It is a small feature, but it removes the most common source of confusion for beginners, and it makes the tool genuinely useful for mixed groups, classrooms and families spread across different places.</p>
+<h2 class="text-3xl font-extrabold text-slate-800 mt-8">Why Capital Letters and Punctuation Matter</h2>
+<p>A translator that only handled single lowercase words would miss most of the fun. Real messages have names in them. Real messages have questions, jokes with exclamation marks, song lyrics with line breaks, and the occasional sentence typed entirely in capital letters for comic effect. Pigglish preserves all of that shape. A capitalised name keeps its capital in translation, so Hello becomes Ellohay rather than a flattened lowercase version. A word typed in full capitals stays in full capitals. Commas stay beside the words they belong to, full stops close their sentences as usual, and apostrophes, brackets and quotation marks remain in place.</p>
+<p>That faithfulness changes what the tool can be used for. You can translate a whole birthday card message and keep its layout. You can convert a paragraph from a story you are writing and keep its dialogue punctuation intact. You can paste a chat message, translate it, send it to a friend, and know they can paste it straight back into Pigglish and recover your original words, capitals and all. Preserving the small details is what turns a toy word scrambler into a dependable little translator for real sentences.</p>
+<h2 class="text-3xl font-extrabold text-slate-800 mt-8">Translating in Both Directions</h2>
+<p>Most Pig Latin tools only travel one way. They will happily turn English into Pig Latin, then leave you stranded when a friend replies in Pig Latin and you need to work out what on earth they said. Pigglish travels in both directions. One switch flips the tool between English to Pig Latin and Pig Latin to English, and a swap button exchanges the two text cards so you can carry a conversation back and forth without copying and pasting between different websites.</p>
+<p>Decoding deserves an honest note. Pig Latin began as a spoken game, and spoken decoding is helped by tone, context and knowing what your friend is likely to say. Written Pig Latin occasionally produces words that could, in theory, unfold in more than one way. Everyday vocabulary, however, decodes remarkably cleanly, because Pigglish looks at each word as a whole, recognises the common patterns of English, restores the moved sounds to the front, and rebuilds the sentence with its original capitalisation and punctuation. For messages, homework, jokes, secret notes and social posts, the round trip is accurate and fast. Type in one card and the translation appears in the other as you go, so there is not even a button to press.</p>
+<h2 class="text-3xl font-extrabold text-slate-800 mt-8">Hearing It Out Loud</h2>
+<p>Pig Latin lives in the ear. A translated sentence can look merely odd on the page, but spoken aloud it becomes genuinely funny, and hearing the rhythm is also the fastest way to learn the rules. That is why Pigglish includes a Speak result button. Press it and your device reads the translation aloud in its built in voice. Teachers use read aloud features like this to let a whole class hear a sentence together. Parents use them at bedtime when a story gets the Pig Latin treatment. Friends use them because a phone solemnly announcing a translated shopping list is, for reasons nobody can fully explain, extremely funny.</p>
+<p>The speak feature runs entirely on your device through your browser, so it needs no account and sends your words nowhere. If a particular browser or device does not offer a speech voice, Pigglish tells you politely rather than pretending to work. You can stop the speech at any time, translate something new, and speak again as often as you like.</p>
+<h2 class="text-3xl font-extrabold text-slate-800 mt-8">A Short and Surprising History</h2>
+<p>Nobody knows exactly where Pig Latin began, and its history is cheerfully tangled. Language games that move sounds around are ancient and appear in many cultures, because children everywhere discover that shuffling speech makes adults look briefly confused, and that discovery never stops being delightful. References to Pig Latin like wordplay appear in print from the nineteenth century onwards, and by the twentieth century it was a fixture of playgrounds, summer camps, classrooms and family car journeys in the English speaking world. It has turned up in songs, in comedy sketches, in coded notes passed under desks, and in the speech of cartoon characters for generations.</p>
+<p>Scholars of language play sometimes group Pig Latin with other ludlings, the technical name for language games, alongside inventions like Ubbi Dubbi and the many secret speech systems children create for their clubs and gangs. What makes Pig Latin special is its durability. It needs no equipment, no special vocabulary and no permission. Any group of two or more people can adopt it in minutes, adapt its vowel ending to local taste, and pass it on. A game that simple, and that social, does not fade away. It simply waits for the next generation to discover it, which, judging by the steady stream of people searching for translators, happens every single week.</p>
+<h2 class="text-3xl font-extrabold text-slate-800 mt-8">Fun Ways to Use Pigglish</h2>
+<p>The classic use is the secret note. Translate a message, send the Pig Latin version to a friend, and let them decode it here. It is not serious cryptography and it will not fool a determined adult for long, but that was never the point. The point is the shared game of it, the same pleasure as a knock knock joke or a paper fortune teller. Beyond notes, Pigglish earns its keep in classrooms, where translating familiar words is a surprisingly effective way to teach children about vowels, consonant blends and syllables. A pupil who works out why string becomes ingstray has understood something real about how English sounds are built.</p>
+<p>Writers and performers find their own uses. A line of Pig Latin dialogue can give a children’s story its comic sparkle. Party hosts translate quiz answers so that reading the questions aloud does not give anything away. Social media posts gain a playful twist when a caption or a punchline arrives in Pig Latin and followers are invited to decode it in the comments. Language learners use the translator in reverse, decoding Pig Latin sentences as a listening and spelling exercise. And plenty of visitors have no project at all. They simply translate their name, their pet’s name, or the first sentence that comes into their head, press speak, and enjoy the sound of it. That is a perfectly good use too.</p>
+<h2 class="text-3xl font-extrabold text-slate-800 mt-8">Tips for Fluent Pig Latin</h2>
+<p>If you want to move from translating to actually speaking, start with short phrases you use every day. Good morning becomes oodgay orningmay, thank you becomes ankthay youway, and see you later develops a rhythm of its own very quickly. Practise consonant clusters as single sounds rather than separate letters, because that is how the game is played by ear: the ch in chicken travels together, and the qu in queen and quiet travels as a pair, which is why queen becomes eenquay and not something stranger. Pigglish follows those same spoken conventions, including the qu rule, so what you read here matches what fluent players say.</p>
+<p>Listen more than you read at first. Use the speak button, repeat the sentence back, and let your ear learn where the moved sounds land. Keep sentences short while you build confidence, agree on the way or yay variant with your conversation partner before a long exchange, and do not worry about the occasional stumble. Every fluent Pig Latin speaker alive began by producing a word so mangled that everyone present laughed, including them. The laughter is not a failure of the game. The laughter is the game.</p>
+<h2 class="text-3xl font-extrabold text-slate-800 mt-8">Your Words Stay Yours</h2>
+<p>Everything Pigglish does happens inside your browser on your own device. Your text is not uploaded, stored, shared or used to train anything. You can translate a silly sentence, a private joke or a draft line from a story you have not shown anyone, and it goes nowhere. Close the tab and it is gone. That privacy, combined with free unlimited use and no sign up of any kind, is deliberate. A language game should feel as light as it did on the playground, and playgrounds never asked anyone for an email address. Otnay onglay ivelay igpay atinlay, as nobody has ever quite said, but you can now translate it, hear it, and decide for yourself how it sounds.</p></div>
+  <h2 class="text-3xl font-extrabold text-slate-800 mt-10 mb-4">Frequently Asked Questions</h2>
+  <div class="space-y-3 not-prose"><details class="bg-white rounded-2xl border-2 border-pink-100 p-5 shadow-sm"><summary class="font-bold cursor-pointer text-slate-800">What exactly is Pig Latin?</summary><p class="mt-3 leading-relaxed text-slate-600">Pig Latin is a playful language game, not a separate natural language and not real Latin. You transform ordinary English words by moving the opening consonant sounds to the end of the word and adding a short ending. Words that begin with a vowel simply gain an ending instead. The result sounds cheerful and secretive, which is why friends, classmates and families have used it for generations as a light hearted code for jokes, notes and games.</p></details>
+<details class="bg-white rounded-2xl border-2 border-pink-100 p-5 shadow-sm"><summary class="font-bold cursor-pointer text-slate-800">How do I translate a word that starts with a vowel?</summary><p class="mt-3 leading-relaxed text-slate-600">Words that begin with a, e, i, o or u keep their letters in place and gain an ending. On Pigglish you can choose that ending: pick the way variant and apple becomes appleway, or pick the yay variant and apple becomes appleyay. Both forms are widely understood. The way form is the most common in books and classrooms, while the yay form is popular in some regions and friendship groups, so choose the one your group already uses.</p></details>
+<details class="bg-white rounded-2xl border-2 border-pink-100 p-5 shadow-sm"><summary class="font-bold cursor-pointer text-slate-800">What does the way and yay toggle do?</summary><p class="mt-3 leading-relaxed text-slate-600">The toggle only changes how vowel starting words are finished. Consonant starting words work the same way in both modes and simply end in ay after their opening sounds move to the back. So hello becomes ellohay either way, while egg becomes eggway in way mode and eggyay in yay mode. When you translate back into English, Pigglish recognises both endings, so a friend using the other variant can still send you text that decodes cleanly.</p></details>
+<details class="bg-white rounded-2xl border-2 border-pink-100 p-5 shadow-sm"><summary class="font-bold cursor-pointer text-slate-800">Can Pigglish translate Pig Latin back into English?</summary><p class="mt-3 leading-relaxed text-slate-600">Yes. Use the direction switch at the top of the tool, or the swap button between the cards, to flip into Pig Latin to English mode. Pigglish removes the endings, moves the trailing sounds back to the front of each word, and restores your capital letters and punctuation. Because Pig Latin is a spoken game, a few rare words can be ambiguous when written down, but everyday words, names in sentences and common phrases come back accurately.</p></details>
+<details class="bg-white rounded-2xl border-2 border-pink-100 p-5 shadow-sm"><summary class="font-bold cursor-pointer text-slate-800">Does Pigglish keep my capital letters and punctuation?</summary><p class="mt-3 leading-relaxed text-slate-600">Yes. Capitalisation and punctuation are preserved in both directions. A capitalised word such as Hello becomes Ellohay, a shouting word in all capitals such as WOW stays in all capitals after translation, and commas, full stops, question marks, exclamation marks and line breaks stay exactly where you put them. That means whole sentences, song lines and chat messages keep their shape and feeling after translation.</p></details>
+<details class="bg-white rounded-2xl border-2 border-pink-100 p-5 shadow-sm"><summary class="font-bold cursor-pointer text-slate-800">Can I listen to the translation spoken aloud?</summary><p class="mt-3 leading-relaxed text-slate-600">Yes. Press the Speak result button and your browser reads the translated text aloud using its built in speech voice, with no download or account needed. It is a lovely way to learn the rhythm of Pig Latin, to check how a sentence sounds before you say it to friends, or simply to enjoy the comedy of a serious sentence delivered in Pig Latin. If your device has no speech voice available, the tool shows a gentle message instead of failing silently.</p></details></div>
+ </article>
+</main>
+<footer class="border-t-4 border-emerald-200 bg-white mt-4">
+ <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row gap-3 items-center justify-between text-sm font-bold text-slate-500">
+  <span>🐷 Pigglish — the bubbly Pig Latin Translator</span>
+  <span>English ⇄ Pig Latin · way or yay · speak it aloud</span>
+ </div>
+<p class="fx-credit" style="text-align:center;font-size:12.5px;opacity:.62;margin:10px auto 2px;letter-spacing:.01em">Made by <a href="https://fixoraa.tech" target="_blank" rel="noopener" style="color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:2px">Fixoraa</a></p>
+</footer>
+<script id="lib-pigglish">
+var PigglishLib = (function () {
+  var VOWELS = 'aeiou';
+  var COMMON = ('the of and a an to in is you that it he was for on are as with his they i at be this have from or one had by word but not what all were we when your can said there use each which she do how their if will up other about out many then them these so some her would make like him into time has look two more write go see number no way could people my than first water been call who oil its now find long down day did get come made may part over new sound take only little work know place year live me back give most very after thing our just name good sentence man think say great where help through much before line right too mean old any same tell boy follow came want show also around form three small set put end does another well large must big even such because turn here why ask went men read need land different home us move try kind hand picture again change off play spell air away animal house point page letter mother answer found study still learn should world high every near add food between own below country plant last school father keep tree never start city earth eye light thought head under story saw left few while along might close something seem next hard open example begin life always those both paper together got group often run hello pig latin english language speak read book friend school play happy love day sun moon star fish bird cat dog house tree flower water fire happy good morning night light world people string strong quick brown fox jumps lazy over chicken cheese please thank thanks welcome goodbye yes please apple egg orange umbrella elephant animal over under open every idea about above again also always animal answer around ask brown black blue green yellow purple pink white spring summer winter autumn fall season river ocean mountain valley bridge road street town city village garden park market shop store money time clock watch hand foot head eye ear nose mouth tooth tongue happy sad angry tired hungry thirsty hot cold warm cool fast slow big small tall short long new old young beautiful pretty funny silly smart brave kind nice sweet sour salty bitter fresh clean dirty easy hard simple').split(/\s+/);
+  var COMMON_SET = {};
+  for (var ci = 0; ci < COMMON.length; ci++) COMMON_SET[COMMON[ci]] = true;
+  var VALID_CLUSTERS = { bl:1, br:1, ch:1, cl:1, cr:1, dr:1, fl:1, fr:1, gl:1, gr:1, pl:1, pr:1, qu:1, sc:1, sch:1, scr:1, sh:1, sk:1, sl:1, sm:1, sn:1, sp:1, squ:1, st:1, str:1, sw:1, th:1, thr:1, tr:1, tw:1, wh:1, wr:1, ph:1, chr:1, spl:1, spr:1, shr:1, gh:1, kn:1, gn:1 };
+
+  function isVowel(ch) { return VOWELS.indexOf(ch) !== -1; }
+  function normalizeVariant(v) { return v === 'yay' ? 'yay' : 'way'; }
+
+  function applyCaps(original, lowerResult) {
+    if (!lowerResult) return lowerResult;
+    if (original.length > 1 && original === original.toUpperCase() && /[A-Z]/.test(original)) {
+      return lowerResult.toUpperCase();
+    }
+    if (/^[A-Z]/.test(original) && (original.length === 1 || original.slice(1) === original.slice(1).toLowerCase())) {
+      return lowerResult.charAt(0).toUpperCase() + lowerResult.slice(1);
+    }
+    if (/^[A-Z]/.test(original)) {
+      return lowerResult.charAt(0).toUpperCase() + lowerResult.slice(1);
+    }
+    return lowerResult;
+  }
+
+  function encodeWord(word, variant) {
+    if (!word || !/^[A-Za-z]+$/.test(word)) return word;
+    variant = normalizeVariant(variant);
+    var lower = word.toLowerCase();
+    var result;
+    if (isVowel(lower.charAt(0))) {
+      result = lower + variant;
+    } else {
+      var idx = -1;
+      for (var i = 0; i < lower.length; i++) { if (isVowel(lower.charAt(i))) { idx = i; break; } }
+      if (idx === -1) {
+        for (var j = 1; j < lower.length; j++) { if (lower.charAt(j) === 'y') { idx = j; break; } }
+      }
+      if (idx <= 0) {
+        result = lower + 'ay';
+      } else {
+        var cluster = lower.slice(0, idx);
+        var rest = lower.slice(idx);
+        if (cluster.charAt(cluster.length - 1) === 'q' && rest.charAt(0) === 'u') {
+          cluster += 'u'; rest = rest.slice(1);
+        }
+        result = rest + cluster + 'ay';
+      }
+    }
+    return applyCaps(word, result);
+  }
+
+  function decodeWord(word, variant) {
+    if (!word || !/^[A-Za-z]+$/.test(word)) return word;
+    variant = normalizeVariant(variant);
+    var lower = word.toLowerCase();
+    var result = null;
+    // Collect candidates
+    var candidates = [];
+    // Vowel interpretation: ends way/yay, stem starts with vowel
+    var suffixes = variant === 'yay' ? ['yay', 'way'] : ['way', 'yay'];
+    for (var s = 0; s < suffixes.length; s++) {
+      var suf = suffixes[s];
+      if (lower.length > suf.length && lower.slice(-suf.length) === suf) {
+        var stem = lower.slice(0, -suf.length);
+        if (isVowel(stem.charAt(0))) candidates.push({ word: stem, type: 'vowel', score: 5 });
+      }
+    }
+    // Rotation candidates for -ay words
+    var rotations = [];
+    if (lower.length > 2 && lower.slice(-2) === 'ay') {
+      var base = lower.slice(0, -2);
+      // Avoid double-counting vowel case base ending w/y already; rotations still useful for w-initial words like word->ordway (base ordw)
+      for (var k = 1; k < base.length; k++) {
+        var moved = base.slice(-k);
+        var rest2 = base.slice(0, -k);
+        if (!rest2) continue;
+        if (!isVowel(rest2.charAt(0)) && rest2.charAt(0) !== 'y') continue;
+        // moved must be all consonants, or end with qu pattern handled (moved includes u after q)
+        var movedCore = moved;
+        var allCons = true;
+        for (var t = 0; t < movedCore.length; t++) {
+          var ch = movedCore.charAt(t);
+          if (isVowel(ch)) {
+            if (!(ch === 'u' && t > 0 && movedCore.charAt(t - 1) === 'q')) { allCons = false; break; }
+          }
+        }
+        if (!allCons) continue;
+        var cand = moved + rest2;
+        var score = 0;
+        if (k === 1) score += 3;
+        else if (VALID_CLUSTERS[moved]) score += 4;
+        else if (k <= 3) score += 1;
+        else score -= 2;
+        if (COMMON_SET[cand]) score += 100;
+        rotations.push({ word: cand, type: 'rotation', score: score, k: k });
+      }
+    }
+    // Dictionary wins
+    var all = candidates.concat(rotations);
+    var dictPick = null;
+    for (var d = 0; d < all.length; d++) { if (COMMON_SET[all[d].word]) { if (!dictPick || all[d].score > dictPick.score) dictPick = all[d]; } }
+    if (dictPick) result = dictPick.word;
+    else if (candidates.length) result = candidates[0].word;
+    else if (rotations.length) {
+      rotations.sort(function (a, b) { return b.score - a.score || a.k - b.k; });
+      result = rotations[0].word;
+    } else {
+      result = lower;
+    }
+    return applyCaps(word, result);
+  }
+
+  function translateText(text, direction, variant) {
+    if (text === null || text === undefined) return '';
+    var str = String(text);
+    if (!str) return '';
+    variant = normalizeVariant(variant);
+    var fn = direction === 'toEnglish' ? decodeWord : encodeWord;
+    return str.replace(/[A-Za-z]+/g, function (m) { return fn(m, variant); });
+  }
+
+  function wordCount(text) {
+    if (!text) return 0;
+    var m = String(text).trim().match(/[A-Za-z]+/g);
+    return m ? m.length : 0;
+  }
+
+  return {
+    encodeWord: encodeWord,
+    decodeWord: decodeWord,
+    translateText: translateText,
+    wordCount: wordCount,
+    isVowel: isVowel,
+    normalizeVariant: normalizeVariant
+  };
+})();
+if (typeof module !== 'undefined' && module.exports) { module.exports = PigglishLib; }
+
+</script>
+<script>
+(function(){
+ var direction='toPig', variant='way';
+ var input=document.getElementById('inputText'), output=document.getElementById('outputText');
+ var inputLabel=document.getElementById('inputLabel'), outputLabel=document.getElementById('outputLabel');
+ var inputCount=document.getElementById('inputCount'), outputCount=document.getElementById('outputCount');
+ var msg=document.getElementById('toolMsg');
+ var dirToPig=document.getElementById('dirToPig'), dirToEnglish=document.getElementById('dirToEnglish');
+ var varWay=document.getElementById('varWay'), varYay=document.getElementById('varYay');
+ function setMsg(t){ msg.textContent=t||''; }
+ function refresh(){
+   var val=input.value;
+   var out=val.trim()? PigglishLib.translateText(val, direction, variant) : '';
+   output.value=out;
+   inputCount.textContent=PigglishLib.wordCount(val)+' words · '+val.length+' characters';
+   outputCount.textContent=PigglishLib.wordCount(out)+' words';
+ }
+ function paintDir(){
+   var pig = direction==='toPig';
+   dirToPig.className='px-4 py-2 rounded-full font-extrabold '+(pig?'bg-pink-500 text-white':'text-pink-600');
+   dirToEnglish.className='px-4 py-2 rounded-full font-extrabold '+(!pig?'bg-pink-500 text-white':'text-pink-600');
+   inputLabel.textContent=pig?'Your English text':'Your Pig Latin';
+   outputLabel.textContent=pig?'Your Pig Latin':'Your English';
+   input.placeholder=pig?'Type or paste something fun… try: Hello, world!':'Paste Pig Latin here… try: Ellohay, orldway!';
+ }
+ function paintVar(){
+   var way=variant==='way';
+   varWay.className='px-3 py-1 rounded-full font-extrabold '+(way?'bg-emerald-400 text-white':'text-emerald-600');
+   varYay.className='px-3 py-1 rounded-full font-extrabold '+(!way?'bg-emerald-400 text-white':'text-emerald-600');
+   varWay.setAttribute('aria-pressed', way?'true':'false'); varYay.setAttribute('aria-pressed', !way?'true':'false');
+ }
+ dirToPig.addEventListener('click',function(){direction='toPig';paintDir();refresh();});
+ dirToEnglish.addEventListener('click',function(){direction='toEnglish';paintDir();refresh();});
+ varWay.addEventListener('click',function(){variant='way';paintVar();refresh();});
+ varYay.addEventListener('click',function(){variant='yay';paintVar();refresh();});
+ document.getElementById('swapBtn').addEventListener('click',function(){
+   var currentOutput=output.value;
+   direction = direction==='toPig' ? 'toEnglish' : 'toPig';
+   input.value=currentOutput; paintDir(); refresh(); setMsg('Swapped! Now translating the other way.');
+ });
+ input.addEventListener('input',function(){setMsg('');refresh();});
+ document.getElementById('clearBtn').addEventListener('click',function(){input.value='';refresh();setMsg('Cleared. Type something fun!');input.focus();});
+ document.getElementById('pasteBtn').addEventListener('click',function(){
+   if(navigator.clipboard&&navigator.clipboard.readText){ navigator.clipboard.readText().then(function(t){input.value=t||input.value;refresh();setMsg(t?'Pasted from clipboard.':'Clipboard was empty.');}).catch(function(){setMsg('Paste was blocked by the browser — press Ctrl+V in the box instead.');}); }
+   else setMsg('Press Ctrl+V in the box to paste.');
+ });
+ document.getElementById('copyBtn').addEventListener('click',function(){
+   if(!output.value.trim()){setMsg('Nothing to copy yet — type something first!');return;}
+   function done(){setMsg('Copied! Now go confuse a friend. 🐷');}
+   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(output.value).then(done).catch(function(){output.select();document.execCommand('copy');done();});}
+   else{output.select();document.execCommand('copy');done();}
+ });
+ document.getElementById('speakBtn').addEventListener('click',function(){
+   var text=output.value.trim();
+   if(!text){setMsg('Nothing to speak yet — translate something first!');return;}
+   if(!('speechSynthesis' in window)){setMsg('Sorry, this device has no speech voice available.');return;}
+   window.speechSynthesis.cancel();
+   var u=new SpeechSynthesisUtterance(text); u.lang='en-US'; u.rate=0.92;
+   window.speechSynthesis.speak(u); setMsg('Speaking… press again after changing the text.');
+ });
+ var ex=document.querySelectorAll('.exampleBtn');
+ for(var i=0;i<ex.length;i++){ ex[i].addEventListener('click',function(){ direction='toPig'; input.value=this.getAttribute('data-text'); paintDir(); refresh(); setMsg('Example loaded — try flipping it back with the swap button!'); }); }
+ paintDir(); paintVar(); refresh();
+})();
+</script>
+</body>
+</html>
